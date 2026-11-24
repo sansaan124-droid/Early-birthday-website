@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>Waiting Room for Roth's 14th 🌙</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@500;700;800&family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <style>
+    /* =========================================================================
+       1. CELESTIAL MIDNIGHT OBSERVATORY & LUXURY TICKET DESIGN TOKENS
+       ========================================================================= */
+    :root {
+      --bg-void: #070b19;
+      --bg-abyss: #0c1026;
+      --bg-indigo: #1b1542;
+      --ticket-top-bg: linear-gradient(155deg, rgba(31, 25, 74, 0.92) 0%, rgba(15, 19, 44, 0.95) 100%);
+      --ticket-stub-bg: linear-gradient(180deg, rgba(11, 14, 34, 0.96) 0%, rgba(7, 10, 24, 0.98) 100%);
+      --glass-border: rgba(216, 180, 254, 0.24);
+      --gold-border: rgba(253, 230, 138, 0.42);
+      --text-cream: #fffdf5;
+      --text-soft: #d6def0;
+      --text-muted: #93a0c2;
+      --lavender: #c4b5fd;
+      --violet-glow: #8b5cf6;
+      --gold-light: #fef08a;
+      --gold-warm: #fde68a;
+      --gold-amber: #f59e0b;
+      --shadow-deep: 0 26px 65px rgba(2, 4, 14, 0.78), 0 0 42px rgba(124, 58, 237, 0.16);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    html, body {
+      width: 100%;
+      min-height: 100%;
+      font-family: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+      color: var(--text-cream);
+      background: radial-gradient(ellipse at 50% 0%, #241954 0%, #0d1128 48%, #070b19 100%);
+      overflow-x: hidden;
+      line-height: 1.5;
+    }
+
+    /* =========================================================================
+       2. COSMIC BACKDROP: AURORA WAVES, NEBULAS, ASTROLABE & STARFIELD
+       ========================================================================= */
+    .cosmos-layer {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .aurora {
+      position: absolute;
+      width: 165%;
+      height: 58%;
+      left: -32%;
+      top: -16%;
+      background: conic-gradient(
+        from 190deg at 50% 50%,
+        rgba(139, 92, 246, 0.0) 0deg,
+        rgba(139, 92, 246, 0.24) 70deg,
+        rgba(56, 189, 248, 0.15) 140deg,
+        rgba(251, 191, 36, 0.13) 210deg,
+        rgba(139, 92, 246, 0.0) 360deg
+      );
+      filter: blur(65px);
+      animation: auroraDrift 18s ease-in-out infinite alternate;
+      opacity: 0.88;
+    }
+
+    @keyframes auroraDrift {
+      0% { transform: translate3d(-4%, -2%, 0) rotate(-4deg) scale(1); }
+      100% { transform: translate3d(4%, 3%, 0) rotate(5deg) scale(1.08); }
+    }
+
+    .nebula-orb {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(85px);
+    }
+
+    .orb-purple {
+      width: 360px;
+      height: 360px;
+      background: #5b21b6;
+      top: -100px;
+      left: -90px;
+      opacity: 0.38;
+    }
+
+    .orb-blue {
+      width: 400px;
+      height: 400px;
+      background: #1e40af;
+      bottom: -140px;
+      right: -100px;
+      opacity: 0.28;
+    }
+
+    .orb-gold {
+      width: 260px;
+      height: 260px;
+      background: #b45309;
+      top: 46%;
+      left: 52%;
+      opacity: 0.15;
+    }
+
+    /* Rotating Celestial Astrolabe Rings */
+    .astrolabe-wrap {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: min(700px, 148vw);
+      height: min(700px, 148vw);
+      transform: translate(-50%, -50%);
+      pointer-events: none;
+      z-index: 1;
+      opacity: 0.25;
+    }
+
+    .astrolabe-svg {
+      width: 100%;
+      height: 100%;
+      animation: spinSlow 95s linear infinite;
+    }
+
+    .astrolabe-inner {
+      transform-origin: 300px 300px;
+      animation: spinReverse 62s linear infinite;
+    }
+
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes spinReverse {
+      from { transform: rotate(360deg); }
+      to { transform: rotate(0deg); }
+    }
+
+    /* Interactive Twinkling & Shooting Stars */
+    .interactive-sky {
+      position: fixed;
+      inset: 0;
+      z-index: 2;
+      pointer-events: none;
+      overflow: hidden;
+    }
+
+    .twinkle-star {
+      position: absolute;
+      background: #fffbeb;
+      border-radius: 50%;
+      box-shadow: 0 0 6px rgba(254, 243, 199, 0.85);
+      animation: starTwinkle var(--dur, 3.5s) ease-in-out infinite alternate;
+    }
+
+    @keyframes starTwinkle {
+      0% { opacity: 0.18; transform: scale(0.8); }
+      100% { opacity: 0.94; transform: scale(1.25); }
+    }
+
+    .shooting-star {
+      position: absolute;
+      pointer-events: auto;
+      cursor: pointer;
+      padding: 14px;
+      margin: -14px;
+      font-size: 1.25rem;
+      filter: drop-shadow(0 0 10px rgba(253, 230, 138, 0.95));
+      animation: starGlide linear forwards;
+      user-select: none;
+      transition: transform 0.15s ease;
+    }
+
+    .shooting-star:active {
+      transform: scale(1.5);
+    }
+
+    @keyframes starGlide {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg) scale(0.85);
+        opacity: 0;
+      }
+      12% { opacity: 1; }
+      88% { opacity: 1; }
+      100% {
+        transform: translate3d(var(--dx, 90px), var(--dy, 120px), 0) rotate(200deg) scale(1.05);
+        opacity: 0;
+      }
+    }
+
+    .stardust-burst {
+      position: fixed;
+      pointer-events: none;
+      z-index: 99;
+      font-size: 1.15rem;
+      animation: burstFly 0.95s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @keyframes burstFly {
+      0% {
+        opacity: 1;
+        transform: translate3d(0, 0, 0) scale(0.65);
+      }
+      100% {
+        opacity: 0;
+        transform: translate3d(var(--bx, 0px), var(--by, -75px), 0) scale(1.3);
+      }
+    }
+
+    /* =========================================================================
+       3. CENTERED 540PX CONTAINER
+       ========================================================================= */
+    .lobby-shell {
+      position: relative;
+      z-index: 10;
+      width: 100%;
+      max-width: 540px;
+      margin: 0 auto;
+      padding: max(22px, env(safe-area-inset-top)) 16px 48px;
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+    }
+
+    /* =========================================================================
+       CARD 1: LUXURY CELESTIAL BOARDING PASS / TICKET WITH PERFORATED STUB
+       ========================================================================= */
+    .boarding-pass {
+      position: relative;
+      border-radius: 26px;
+      border: 1px solid var(--gold-border);
+      box-shadow: var(--shadow-deep), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      overflow: hidden;
+      backdrop-filter: blur(22px);
+      -webkit-backdrop-filter: blur(22px);
+    }
+
+    /* Top Gold Holographic Foil Trim Strip */
+    .foil-strip {
+      height: 6px;
+      width: 100%;
+      background: linear-gradient(
+        90deg,
+        #b45309 0%,
+        #fde68a 25%,
+        #c4b5fd 50%,
+        #fde68a 75%,
+        #f59e0b 100%
+      );
+      background-size: 200% 100%;
+      animation: foilShimmer 6s linear infinite;
+    }
+
+    @keyframes foilShimmer {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 200% 50%; }
+    }
+
+    /* Upper Ticket Body */
+    .ticket-upper {
+      position: relative;
+      background: var(--ticket-top-bg);
+      padding: 20px 22px 22px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+
+    /* Subtle Diagonal Security Guilloche Watermark */
+    .ticket-upper::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        -45deg,
+        rgba(253, 230, 138, 0.025) 0px,
+        rgba(253, 230, 138, 0.025) 2px,
+        transparent 2px,
+        transparent 10px
+      );
+      pointer-events: none;
+    }
+
+    .ticket-header-row {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+
+    .celebration-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 13px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, rgba(253, 230, 138, 0.2), rgba(245, 158, 11, 0.14));
+      border: 1px solid rgba(253, 230, 138, 0.45);
+      color: var(--gold-warm);
+      font-size: 0.77rem;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      box-shadow: 0 4px 16px rgba(253, 230, 138, 0.14);
+    }
+
+    .live-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.67rem;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      padding: 5px 11px;
+      border-radius: 999px;
+      background: rgba(196, 181, 253, 0.14);
+      border: 1px solid rgba(196, 181, 253, 0.36);
+      color: var(--lavender);
+    }
+
+    .live-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      box-shadow: 0 0 10px #4ade80;
+      animation: beaconPulse 1.8s ease-in-out infinite;
+    }
+
+    @keyframes beaconPulse {
+      0%, 100% { opacity: 1; transform: scale(1); }
+      50% { opacity: 0.4; transform: scale(0.78); }
+    }
+
+    /* Serial & Barcode Strip */
+    .ticket-serial-bar {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      padding: 7px 11px;
+      border-radius: 10px;
+      background: rgba(7, 11, 25, 0.52);
+      border: 1px solid rgba(253, 230, 138, 0.18);
+    }
+
+    .serial-code {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.65rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: rgba(253, 230, 138, 0.85);
+    }
+
+    .barcode-bars {
+      height: 14px;
+      width: 96px;
+      opacity: 0.72;
+      background: repeating-linear-gradient(
+        90deg,
+        #fde68a 0px, #fde68a 2px,
+        transparent 2px, transparent 4px,
+        #fde68a 4px, #fde68a 5px,
+        transparent 5px, transparent 8px,
+        #fde68a 8px, #fde68a 11px,
+        transparent 11px, transparent 13px
+      );
+    }
+
+    .ticket-title {
+      position: relative;
+      z-index: 1;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: clamp(1.78rem, 6.2vw, 2.28rem);
+      font-weight: 700;
+      line-height: 1.16;
+      color: var(--text-cream);
+      letter-spacing: -0.01em;
+    }
+
+    .ticket-title .gold-italic {
+      font-style: italic;
+      background: linear-gradient(135deg, #fef9c3 0%, #fde68a 45%, #f59e0b 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      filter: drop-shadow(0 2px 14px rgba(253, 230, 138, 0.28));
+    }
+
+    .ticket-subtitle {
+      position: relative;
+      z-index: 1;
+      font-size: 0.92rem;
+      color: var(--text-soft);
+      line-height: 1.55;
+    }
+
+    /* Perforated Tear Divider with Dual Circular Punch-Out Notches */
+    .ticket-perforation {
+      position: relative;
+      height: 26px;
+      background: linear-gradient(180deg, rgba(15, 19, 44, 0.95) 0%, rgba(11, 14, 34, 0.96) 100%);
+      display: flex;
+      align-items: center;
+    }
+
+    .ticket-perforation::before,
+    .ticket-perforation::after {
+      content: '';
+      position: absolute;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      background: #090d1f;
+      border: 1px solid var(--gold-border);
+      box-shadow: inset 0 2px 8px rgba(0, 0, 0, 0.8);
+      z-index: 3;
+    }
+
+    .ticket-perforation::before {
+      left: -14px;
+    }
+
+    .ticket-perforation::after {
+      right: -14px;
+    }
+
+    .tear-line {
+      width: 100%;
+      margin: 0 18px;
+      border-top: 2px dashed rgba(253, 230, 138, 0.34);
+    }
+
+    /* Lower Ticket Countdown Stub */
+    .ticket-stub {
+      background: var(--ticket-stub-bg);
+      padding: 18px 20px 22px;
+      text-align: center;
+    }
+
+    .eyebrow-label {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.69rem;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--lavender);
+      margin-bottom: 15px;
+    }
+
+    /* Recessed Digital Flight-Board Countdown Tiles */
+    .timer-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+
+    .flight-tile {
+      position: relative;
+      background: linear-gradient(180deg, #060917 0%, #0d132e 50%, #050814 100%);
+      border: 1px solid rgba(253, 230, 138, 0.3);
+      border-radius: 16px;
+      padding: 14px 6px 12px;
+      box-shadow:
+        inset 0 3px 10px rgba(0, 0, 0, 0.85),
+        inset 0 -1px 0 rgba(253, 230, 138, 0.14),
+        0 6px 18px rgba(0, 0, 0, 0.45);
+      overflow: hidden;
+    }
+
+    /* Split-flap mechanical line */
+    .flight-tile::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 50%;
+      height: 1.5px;
+      background: rgba(0, 0, 0, 0.75);
+      box-shadow: 0 1px 0 rgba(255, 255, 255, 0.06);
+      pointer-events: none;
+      z-index: 2;
+    }
+
+    /* Side rivet dots on flight-board tiles */
+    .flight-tile::after {
+      content: '';
+      position: absolute;
+      top: calc(50% - 2px);
+      left: 4px;
+      right: 4px;
+      height: 4px;
+      background:
+        radial-gradient(circle at 2px 2px, rgba(253, 230, 138, 0.45) 1.5px, transparent 2px),
+        radial-gradient(circle at calc(100% - 2px) 2px, rgba(253, 230, 138, 0.45) 1.5px, transparent 2px);
+      pointer-events: none;
+    }
+
+    .digit-value {
+      position: relative;
+      z-index: 1;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: clamp(1.6rem, 6.2vw, 2.2rem);
+      font-weight: 800;
+      color: var(--gold-warm);
+      line-height: 1.05;
+      text-shadow: 0 0 20px rgba(253, 230, 138, 0.42);
+      transition: transform 0.18s ease;
+    }
+
+    .digit-value.tick-pop {
+      transform: scale(1.06);
+    }
+
+    .digit-unit {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.61rem;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      color: var(--text-muted);
+      margin-top: 7px;
+      text-transform: uppercase;
+    }
+
+    .countdown-caption {
+      font-size: 0.85rem;
+      color: var(--text-soft);
+      line-height: 1.5;
+      margin-bottom: 14px;
+    }
+
+    .sealed-pill {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 14px;
+      background: rgba(15, 20, 46, 0.72);
+      border: 1px dashed rgba(196, 181, 253, 0.34);
+      color: var(--lavender);
+      font-size: 0.82rem;
+      font-weight: 600;
+    }
+
+    /* Unlocked Release Button (Hidden until Nov 26, 2026 00:00:00 UTC+07:00) */
+    .unlock-portal {
+      display: none;
+      margin-top: 6px;
+      animation: portalReveal 0.55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .unlock-portal.visible {
+      display: block;
+    }
+
+    @keyframes portalReveal {
+      from { opacity: 0; transform: translateY(12px) scale(0.97); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .unlock-cta {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      width: 100%;
+      padding: 16px 22px;
+      border-radius: 16px;
+      background: linear-gradient(135deg, #fef08a 0%, #fde68a 45%, #f59e0b 100%);
+      color: #16113a;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.98rem;
+      font-weight: 800;
+      text-decoration: none;
+      box-shadow: 0 12px 32px rgba(245, 158, 11, 0.45), 0 0 24px rgba(253, 230, 138, 0.32);
+      transition: transform 0.18s ease, filter 0.18s ease;
+    }
+
+    .unlock-cta:hover {
+      filter: brightness(1.06);
+      transform: translateY(-2px);
+    }
+
+    .unlock-cta:active {
+      transform: scale(0.97);
+    }
+
+    /* =========================================================================
+       CARD 2: METALLIC-TRIM VINYL TURNTABLE / AUDIO DECK MODULE
+       ========================================================================= */
+    .audio-deck {
+      position: relative;
+      background: linear-gradient(160deg, rgba(24, 24, 58, 0.88) 0%, rgba(10, 13, 32, 0.94) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(196, 181, 253, 0.3);
+      border-radius: 22px;
+      padding: 14px 16px;
+      box-shadow: var(--shadow-deep), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    /* Corner metallic deck screws */
+    .deck-screw {
+      position: absolute;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: rgba(253, 230, 138, 0.32);
+      box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.8);
+      pointer-events: none;
+    }
+    .screw-tl { top: 8px; left: 8px; }
+    .screw-tr { top: 8px; right: 8px; }
+    .screw-bl { bottom: 8px; left: 8px; }
+    .screw-br { bottom: 8px; right: 8px; }
+
+    .turntable-cluster {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      min-width: 0;
+    }
+
+    .platter-ring {
+      position: relative;
+      width: 50px;
+      height: 50px;
+      border-radius: 50%;
+      padding: 3px;
+      background: linear-gradient(135deg, rgba(253, 230, 138, 0.45), rgba(139, 92, 246, 0.3));
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.55);
+      flex-shrink: 0;
+    }
+
+    .vinyl-record {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle, #070b19 0%, #070b19 9%, #fde68a 10%, #f59e0b 25%, #090d1f 27%, #1e1b4b 44%, #080c1c 62%, #2e286b 80%, #080c1c 100%);
+    }
+
+    .vinyl-record::after {
+      content: '';
+      position: absolute;
+      inset: 1px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.25) 0%, transparent 45%, rgba(255, 255, 255, 0.1) 100%);
+      pointer-events: none;
+    }
+
+    .vinyl-record.spinning {
+      animation: spinRecord 5.5s linear infinite;
+    }
+
+    @keyframes spinRecord {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    .track-meta {
+      min-width: 0;
+    }
+
+    .track-name {
+      font-size: 0.87rem;
+      font-weight: 700;
+      color: var(--text-cream);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .track-subline {
+      font-size: 0.74rem;
+      color: var(--lavender);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .eq-bars {
+      display: inline-flex;
+      align-items: flex-end;
+      gap: 2.5px;
+      height: 11px;
+      flex-shrink: 0;
+    }
+
+    .eq-bar {
+      width: 2.5px;
+      height: 4px;
+      background: var(--gold-warm);
+      border-radius: 2px;
+      transition: height 0.2s ease;
+    }
+
+    .eq-bars.playing .eq-bar:nth-child(1) { animation: eqWave 0.72s ease-in-out infinite alternate; }
+    .eq-bars.playing .eq-bar:nth-child(2) { animation: eqWave 0.48s ease-in-out 0.18s infinite alternate; }
+    .eq-bars.playing .eq-bar:nth-child(3) { animation: eqWave 0.82s ease-in-out 0.08s infinite alternate; }
+
+    @keyframes eqWave {
+      0% { height: 3px; }
+      100% { height: 11px; }
+    }
+
+    .deck-toggle-btn {
+      background: linear-gradient(180deg, rgba(196, 181, 253, 0.24) 0%, rgba(139, 92, 246, 0.28) 100%);
+      border: 1px solid rgba(253, 230, 138, 0.42);
+      color: var(--text-cream);
+      padding: 9px 16px;
+      border-radius: 999px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.79rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35), inset 0 1px 0 rgba(255, 255, 255, 0.2);
+      transition: all 0.18s ease;
+    }
+
+    .deck-toggle-btn:hover {
+      border-color: var(--gold-warm);
+      filter: brightness(1.08);
+    }
+
+    .deck-toggle-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* =========================================================================
+       CARD 3: WAX-SEALED LUXURY VELVET & GOLD-FOIL STATIONERY ENVELOPE
+       ========================================================================= */
+    .envelope-card {
+      position: relative;
+      background: linear-gradient(155deg, rgba(34, 21, 66, 0.9) 0%, rgba(15, 16, 40, 0.94) 100%);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(253, 230, 138, 0.34);
+      border-radius: 24px;
+      padding: 18px 20px;
+      box-shadow: var(--shadow-deep), inset 0 1px 0 rgba(253, 230, 138, 0.18);
+      overflow: hidden;
+      transition: border-color 0.25s ease;
+    }
+
+    .envelope-card.open {
+      border-color: rgba(253, 230, 138, 0.56);
+    }
+
+    /* Decorative Gold Envelope V-Flap Lines */
+    .envelope-flap-lines {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 76px;
+      pointer-events: none;
+      opacity: 0.35;
+    }
+
+    /* Outer Corner Filigree Brackets */
+    .env-filigree {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      border-color: rgba(253, 230, 138, 0.48);
+      border-style: solid;
+      pointer-events: none;
+    }
+    .ef-tl { top: 8px; left: 8px; border-width: 1.5px 0 0 1.5px; border-top-left-radius: 6px; }
+    .ef-tr { top: 8px; right: 8px; border-width: 1.5px 1.5px 0 0; border-top-right-radius: 6px; }
+    .ef-bl { bottom: 8px; left: 8px; border-width: 0 0 1.5px 1.5px; border-bottom-left-radius: 6px; }
+    .ef-br { bottom: 8px; right: 8px; border-width: 0 1.5px 1.5px 0; border-bottom-right-radius: 6px; }
+
+    .envelope-header {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .seal-title-group {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    /* Embossed Gold & Crimson Wax Seal Emblem */
+    .wax-seal-emblem {
+      position: relative;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 32% 30%, #fbbf24 0%, #b91c1c 58%, #7f1d1d 100%);
+      border: 2px solid rgba(253, 230, 138, 0.65);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.05rem;
+      box-shadow:
+        0 6px 16px rgba(127, 29, 29, 0.55),
+        inset 0 2px 4px rgba(254, 240, 138, 0.55),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.55);
+      flex-shrink: 0;
+    }
+
+    .envelope-heading {
+      font-size: 0.95rem;
+      font-weight: 700;
+      color: var(--text-cream);
+    }
+
+    .envelope-toggle-btn {
+      background: linear-gradient(135deg, rgba(253, 230, 138, 0.18), rgba(245, 158, 11, 0.14));
+      border: 1px solid rgba(253, 230, 138, 0.45);
+      color: var(--gold-warm);
+      padding: 8px 15px;
+      border-radius: 999px;
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 700;
+      cursor: pointer;
+      flex-shrink: 0;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+      transition: all 0.2s ease;
+    }
+
+    .envelope-toggle-btn:hover {
+      background: linear-gradient(135deg, rgba(253, 230, 138, 0.28), rgba(245, 158, 11, 0.22));
+    }
+
+    .envelope-toggle-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* Smooth Accordion Drawer */
+    .letter-drawer {
+      display: grid;
+      grid-template-rows: 0fr;
+      transition: grid-template-rows 0.42s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .envelope-card.open .letter-drawer {
+      grid-template-rows: 1fr;
+    }
+
+    .letter-drawer-inner {
+      overflow: hidden;
+    }
+
+    .parchment-sheet {
+      position: relative;
+      z-index: 2;
+      margin-top: 16px;
+      padding: 20px 20px 18px;
+      border-radius: 18px;
+      background: linear-gradient(180deg, rgba(18, 16, 46, 0.9) 0%, rgba(10, 12, 32, 0.95) 100%);
+      border: 1px solid rgba(253, 230, 138, 0.28);
+      box-shadow: inset 0 0 26px rgba(139, 92, 246, 0.14);
+      opacity: 0;
+      transform: translateY(-8px);
+      transition: opacity 0.32s ease 0.08s, transform 0.34s ease 0.08s;
+    }
+
+    .envelope-card.open .parchment-sheet {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .corner-flourish {
+      position: absolute;
+      width: 11px;
+      height: 11px;
+      border-color: rgba(253, 230, 138, 0.55);
+      border-style: solid;
+      pointer-events: none;
+    }
+    .corner-tl { top: 8px; left: 8px; border-width: 1.5px 0 0 1.5px; border-top-left-radius: 4px; }
+    .corner-tr { top: 8px; right: 8px; border-width: 1.5px 1.5px 0 0; border-top-right-radius: 4px; }
+    .corner-bl { bottom: 8px; left: 8px; border-width: 0 0 1.5px 1.5px; border-bottom-left-radius: 4px; }
+    .corner-br { bottom: 8px; right: 8px; border-width: 0 1.5px 1.5px 0; border-bottom-right-radius: 4px; }
+
+    .ruled-text {
+      background-image: repeating-linear-gradient(
+        to bottom,
+        transparent 0px,
+        transparent 27px,
+        rgba(196, 181, 253, 0.11) 28px
+      );
+      font-size: 0.93rem;
+      line-height: 28px;
+      color: var(--text-cream);
+      letter-spacing: 0.01em;
+    }
+
+    .letter-signature {
+      margin-top: 12px;
+      text-align: right;
+      font-family: 'Playfair Display', Georgia, serif;
+      font-style: italic;
+      font-size: 1.08rem;
+      color: var(--gold-warm);
+    }
+
+    @media (max-width: 390px) {
+      .ticket-upper, .ticket-stub, .envelope-card {
+        padding-left: 16px;
+        padding-right: 16px;
+      }
+      .timer-grid {
+        gap: 7px;
+      }
+      .parchment-sheet {
+        padding: 16px 15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Cosmic Aurora & Nebula Layer -->
+  <div class="cosmos-layer" aria-hidden="true">
+    <div class="aurora"></div>
+    <div class="nebula-orb orb-purple"></div>
+    <div class="nebula-orb orb-blue"></div>
+    <div class="nebula-orb orb-gold"></div>
+  </div>
+
+  <!-- Rotating Celestial Astrolabe Rings -->
+  <div class="astrolabe-wrap" aria-hidden="true">
+    <svg class="astrolabe-svg" viewBox="0 0 600 600" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="300" cy="300" r="285" stroke="url(#goldRing)" stroke-width="1" stroke-dasharray="4 8" />
+      <circle cx="300" cy="300" r="240" stroke="url(#lavRing)" stroke-width="0.9" />
+      <g class="astrolabe-inner">
+        <circle cx="300" cy="300" r="190" stroke="url(#goldRing)" stroke-width="1" stroke-dasharray="10 6" />
+        <polygon points="300,60 508,420 92,420" stroke="rgba(253,230,138,0.22)" stroke-width="0.8" />
+        <polygon points="300,540 92,180 508,180" stroke="rgba(196,181,253,0.22)" stroke-width="0.8" />
+      </g>
+      <defs>
+        <linearGradient id="goldRing" x1="0" y1="0" x2="600" y2="600">
+          <stop offset="0%" stop-color="#fde68a" stop-opacity="0.6" />
+          <stop offset="50%" stop-color="#c4b5fd" stop-opacity="0.2" />
+          <stop offset="100%" stop-color="#fde68a" stop-opacity="0.6" />
+        </linearGradient>
+        <linearGradient id="lavRing" x1="600" y1="0" x2="0" y2="600">
+          <stop offset="0%" stop-color="#c4b5fd" stop-opacity="0.5" />
+          <stop offset="100%" stop-color="#38bdf8" stop-opacity="0.2" />
+        </linearGradient>
+      </defs>
+    </svg>
+  </div>
+
+  <!-- Interactive Twinkling & Shooting Stars -->
+  <div class="interactive-sky" id="interactiveSky" aria-hidden="true"></div>
+
+  <main class="lobby-shell">
+
+    <!-- CARD 1: LUXURY CELESTIAL BOARDING PASS / TICKET -->
+    <section class="boarding-pass" aria-label="Early Birthday Boarding Pass and Countdown">
+      <div class="foil-strip"></div>
+
+      <!-- Upper Ticket Section -->
+      <div class="ticket-upper">
+        <div class="ticket-header-row">
+          <span class="celebration-badge">✨ Early Birthday Website, Woohoo! 🥳</span>
+          <span class="live-pill">
+            <span class="live-dot"></span>
+            <span id="lobbyStatusText">LOBBY OPEN</span>
+          </span>
+        </div>
+
+        <div class="ticket-serial-bar">
+          <span class="serial-code">PASS-1126 // EARLY ACCESS</span>
+          <span class="barcode-bars" aria-hidden="true"></span>
+        </div>
+
+        <h1 class="ticket-title">
+          Waiting Room for <span class="gold-italic">Roth's 14th</span> 🌙
+        </h1>
+
+        <p class="ticket-subtitle">
+          You're a little early! Please be patient until November 26 2026.
+        </p>
+      </div>
+
+      <!-- Perforated Tear Line with Circular Ticket Notches -->
+      <div class="ticket-perforation" aria-hidden="true">
+        <div class="tear-line"></div>
+      </div>
+
+      <!-- Lower Countdown Ticket Stub -->
+      <div class="ticket-stub">
+        <span class="eyebrow-label" id="countdownEyebrow">⏳ COUNTDOWN TO NOVEMBER 26, 2026</span>
+
+        <div class="timer-grid">
+          <div class="flight-tile">
+            <div class="digit-value" id="cdDays">00</div>
+            <div class="digit-unit">Days</div>
+          </div>
+          <div class="flight-tile">
+            <div class="digit-value" id="cdHours">00</div>
+            <div class="digit-unit">Hours</div>
+          </div>
+          <div class="flight-tile">
+            <div class="digit-value" id="cdMinutes">00</div>
+            <div class="digit-unit">Mins</div>
+          </div>
+          <div class="flight-tile">
+            <div class="digit-value" id="cdSeconds">00</div>
+            <div class="digit-unit">Secs</div>
+          </div>
+        </div>
+
+        <p class="countdown-caption" id="countdownCaption">
+          The main birthday website will unlock automatically at 12:00 at night on Nov 26! 🥳
+        </p>
+
+        <!-- Sealed Gate (Shown until 12:00 AM Cambodia Time) -->
+        <div class="sealed-pill" id="sealedGate">
+          <span>🔒</span>
+          <span>Sealed until 12:00 AM on November 26</span>
+        </div>
+
+        <!-- Unlocked Portal Button (Strictly hidden until diff <= 0) -->
+        <div class="unlock-portal" id="unlockPortal">
+          <a
+            href="https://sansaan124-droid.github.io/happy-birthday-roth/"
+            class="unlock-cta"
+            id="mainSiteLink"
+          >
+            🎉 It's 12:00 AM! Enter Roth's 14th Birthday Site ➔
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- CARD 2: VINYL TURNTABLE / AUDIO DECK MODULE -->
+    <section class="audio-deck" aria-label="Lobby Piano Music Player">
+      <span class="deck-screw screw-tl" aria-hidden="true"></span>
+      <span class="deck-screw screw-tr" aria-hidden="true"></span>
+      <span class="deck-screw screw-bl" aria-hidden="true"></span>
+      <span class="deck-screw screw-br" aria-hidden="true"></span>
+
+      <div class="turntable-cluster">
+        <div class="platter-ring">
+          <div class="vinyl-record" id="vinylRecord"></div>
+        </div>
+        <div class="track-meta">
+          <div class="track-name">Midnight Waiting Room — Soft Piano</div>
+          <div class="track-subline">
+            <span class="eq-bars" id="eqBars">
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+              <span class="eq-bar"></span>
+            </span>
+            <span id="audioStatusLabel">Tap anywhere to play lobby piano</span>
+          </div>
+        </div>
+      </div>
+
+      <button type="button" class="deck-toggle-btn" id="audioToggleBtn">
+        Play ♪
+      </button>
+    </section>
+
+    <!-- CARD 3: WAX-SEALED COLLAPSIBLE STATIONERY ENVELOPE -->
+    <section class="envelope-card" id="letterCard" aria-label="A Quick Note While You Wait">
+      <svg class="envelope-flap-lines" viewBox="0 0 540 76" preserveAspectRatio="none" aria-hidden="true">
+        <polyline points="0,0 270,58 540,0" fill="none" stroke="rgba(253, 230, 138, 0.45)" stroke-width="1" />
+      </svg>
+
+      <span class="env-filigree ef-tl" aria-hidden="true"></span>
+      <span class="env-filigree ef-tr" aria-hidden="true"></span>
+      <span class="env-filigree ef-bl" aria-hidden="true"></span>
+      <span class="env-filigree ef-br" aria-hidden="true"></span>
+
+      <div class="envelope-header">
+        <div class="seal-title-group">
+          <div class="wax-seal-emblem">🪐</div>
+          <h2 class="envelope-heading">💌 A Quick Note While You Wait</h2>
+        </div>
+
+        <button
+          type="button"
+          class="envelope-toggle-btn"
+          id="letterToggleBtn"
+          aria-expanded="false"
+          aria-controls="letterDrawer"
+        >
+          Open Letter ▾
+        </button>
+      </div>
+
+      <div class="letter-drawer" id="letterDrawer">
+        <div class="letter-drawer-inner">
+          <div class="parchment-sheet">
+            <span class="corner-flourish corner-tl" aria-hidden="true"></span>
+            <span class="corner-flourish corner-tr" aria-hidden="true"></span>
+            <span class="corner-flourish corner-bl" aria-hidden="true"></span>
+            <span class="corner-flourish corner-br" aria-hidden="true"></span>
+
+            <p class="ruled-text">
+              Hey buddy, so about me disappearing for hours and not replying to you, it was because I was making this website since you said you weren’t really patient so I thought why not make you an early birthday website, and this is it! 🥳 Hope you can forgive me! 🪐
+            </p>
+            <div class="letter-signature">— Your buddy</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    /* =========================================================================
+       1. STRICT CAMBODIA TIME (UTC+07:00) COUNTDOWN TO NOV 26, 2026 00:00:00
+       ========================================================================= */
+    const TARGET_TIMESTAMP_ICT = new Date('2026-11-26T00:00:00+07:00').getTime();
+    let lastSecondStr = '';
+
+    function padZero(num) {
+      return String(Math.max(0, num)).padStart(2, '0');
+    }
+
+    function updateCountdown() {
+      const now = Date.now();
+      const diff = TARGET_TIMESTAMP_ICT - now;
+
+      const cdDays = document.getElementById('cdDays');
+      const cdHours = document.getElementById('cdHours');
+      const cdMinutes = document.getElementById('cdMinutes');
+      const cdSeconds = document.getElementById('cdSeconds');
+      const sealedGate = document.getElementById('sealedGate');
+      const unlockPortal = document.getElementById('unlockPortal');
+      const countdownEyebrow = document.getElementById('countdownEyebrow');
+      const countdownCaption = document.getElementById('countdownCaption');
+      const lobbyStatusText = document.getElementById('lobbyStatusText');
+
+      if (diff <= 0) {
+        cdDays.textContent = '00';
+        cdHours.textContent = '00';
+        cdMinutes.textContent = '00';
+        cdSeconds.textContent = '00';
+        sealedGate.style.display = 'none';
+        unlockPortal.classList.add('visible');
+        countdownEyebrow.textContent = '🎉 IT IS 12:00 AM • SURPRISE UNLOCKED';
+        countdownCaption.textContent = "Happy 14th Birthday Roth! Your main website is unlocked and ready.";
+        lobbyStatusText.textContent = 'UNLOCKED';
+      } else {
+        const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+        const hours = Math.floor((diff / (1000 * 60 * 60)) % 24);
+        const minutes = Math.floor((diff / (1000 * 60)) % 60);
+        const seconds = Math.floor((diff / 1000) % 60);
+
+        const secStr = padZero(seconds);
+        cdDays.textContent = padZero(days);
+        cdHours.textContent = padZero(hours);
+        cdMinutes.textContent = padZero(minutes);
+        cdSeconds.textContent = secStr;
+
+        if (secStr !== lastSecondStr) {
+          lastSecondStr = secStr;
+          cdSeconds.classList.remove('tick-pop');
+          void cdSeconds.offsetWidth;
+          cdSeconds.classList.add('tick-pop');
+        }
+      }
+    }
+
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+
+    /* =========================================================================
+       2. BUILT-IN CALMING LOBBY ELECTRIC PIANO (WEB AUDIO API)
+       ========================================================================= */
+    let audioCtx = null;
+    let isPlaying = false;
+    let loopTimer = null;
+    let stepIndex = 0;
+
+    // Warm calming progression: Fmaj7 -> Em7 -> Dm7 -> Cmaj7
+    const lobbySequence = [
+      { notes: [174.61, 220.00, 261.63, 329.63], melody: 523.25 },
+      { notes: [164.81, 196.00, 246.94, 293.66], melody: 493.88 },
+      { notes: [146.83, 174.61, 220.00, 261.63], melody: 440.00 },
+      { notes: [130.81, 196.00, 246.94, 329.63], melody: 392.00 }
+    ];
+
+    function playWarmPianoTone(freq, startTime, duration, volume) {
+      if (!audioCtx) return;
+
+      const osc1 = audioCtx.createOscillator();
+      const osc2 = audioCtx.createOscillator();
+      const filter = audioCtx.createBiquadFilter();
+      const osc2Gain = audioCtx.createGain();
+      const gainNode = audioCtx.createGain();
+
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(freq, startTime);
+
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(freq * 2, startTime);
+
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(920, startTime);
+
+      osc2Gain.gain.setValueAtTime(0.075, startTime);
+
+      gainNode.gain.setValueAtTime(0.0001, startTime);
+      gainNode.gain.exponentialRampToValueAtTime(volume, startTime + 0.14);
+      gainNode.gain.exponentialRampToValueAtTime(0.0001, startTime + duration);
+
+      osc1.connect(filter);
+      osc2.connect(osc2Gain);
+      osc2Gain.connect(filter);
+      filter.connect(gainNode);
+      gainNode.connect(audioCtx.destination);
+
+      osc1.start(startTime);
+      osc2.start(startTime);
+      osc1.stop(startTime + duration + 0.05);
+      osc2.stop(startTime + duration + 0.05);
+    }
+
+    function scheduleLobbyMeasure() {
+      if (!isPlaying || !audioCtx) return;
+      const bar = lobbySequence[stepIndex % lobbySequence.length];
+      const now = audioCtx.currentTime;
+
+      bar.notes.forEach((freq, idx) => {
+        playWarmPianoTone(freq, now + idx * 0.065, 2.55, 0.032);
+      });
+
+      playWarmPianoTone(bar.melody, now + 0.55, 1.65, 0.028);
+      playWarmPianoTone(bar.notes[3] * 2, now + 1.48, 1.45, 0.022);
+
+      stepIndex++;
+    }
+
+    function updateAudioUI(playing) {
+      const record = document.getElementById('vinylRecord');
+      const eq = document.getElementById('eqBars');
+      const label = document.getElementById('audioStatusLabel');
+      const btn = document.getElementById('audioToggleBtn');
+
+      if (playing) {
+        record.classList.add('spinning');
+        eq.classList.add('playing');
+        label.textContent = 'Playing calming lobby piano...';
+        btn.textContent = 'Pause ❚❚';
+      } else {
+        record.classList.remove('spinning');
+        eq.classList.remove('playing');
+        label.textContent = 'Lobby piano paused';
+        btn.textContent = 'Play ♪';
+      }
+    }
+
+    function startLobbyAudio() {
+      try {
+        if (!audioCtx) {
+          const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+          audioCtx = new AudioContextClass();
+        }
+        if (audioCtx.state === 'suspended') {
+          audioCtx.resume();
+        }
+        if (audioCtx.state === 'running' && !isPlaying) {
+          isPlaying = true;
+          updateAudioUI(true);
+          scheduleLobbyMeasure();
+          loopTimer = setInterval(scheduleLobbyMeasure, 2600);
+        }
+      } catch (err) {
+        // Browser blocked autoplay until user gesture
+      }
+    }
+
+    function stopLobbyAudio() {
+      isPlaying = false;
+      if (loopTimer) {
+        clearInterval(loopTimer);
+        loopTimer = null;
+      }
+      updateAudioUI(false);
+    }
+
+    document.getElementById('audioToggleBtn').addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (isPlaying) {
+        stopLobbyAudio();
+      } else {
+        startLobbyAudio();
+      }
+    });
+
+    window.addEventListener('load', () => {
+      startLobbyAudio();
+    });
+
+    function unlockAudioOnFirstInteraction() {
+      if (!isPlaying) {
+        startLobbyAudio();
+      }
+      if (audioCtx && audioCtx.state === 'running') {
+        document.removeEventListener('pointerdown', unlockAudioOnFirstInteraction);
+        document.removeEventListener('keydown', unlockAudioOnFirstInteraction);
+      }
+    }
+
+    document.addEventListener('pointerdown', unlockAudioOnFirstInteraction);
+    document.addEventListener('keydown', unlockAudioOnFirstInteraction);
+
+    /* =========================================================================
+       3. WAX-SEALED COLLAPSIBLE LETTER CARD
+       ========================================================================= */
+    const letterCard = document.getElementById('letterCard');
+    const letterToggleBtn = document.getElementById('letterToggleBtn');
+
+    letterToggleBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isOpen = letterCard.classList.toggle('open');
+      letterToggleBtn.setAttribute('aria-expanded', String(isOpen));
+      letterToggleBtn.textContent = isOpen ? 'Close Letter ▴' : 'Open Letter ▾';
+    });
+
+    /* =========================================================================
+       4. TWINKLING STARFIELD & INTERACTIVE SHOOTING STARS
+       ========================================================================= */
+    function spawnStardustBurst(x, y) {
+      const symbols = ['✨', '🪐', '🌙', '⭐'];
+      for (let i = 0; i < 8; i++) {
+        const spark = document.createElement('span');
+        spark.className = 'stardust-burst';
+        spark.textContent = symbols[i % symbols.length];
+        spark.style.left = (x - 8) + 'px';
+        spark.style.top = (y - 8) + 'px';
+        spark.style.setProperty('--bx', ((Math.random() - 0.5) * 115).toFixed(0) + 'px');
+        spark.style.setProperty('--by', (-45 - Math.random() * 65).toFixed(0) + 'px');
+        document.body.appendChild(spark);
+        setTimeout(() => spark.remove(), 960);
+      }
+    }
+
+    function initStarfield() {
+      const sky = document.getElementById('interactiveSky');
+      for (let i = 0; i < 45; i++) {
+        const star = document.createElement('div');
+        star.className = 'twinkle-star';
+        const size = (Math.random() * 2.3 + 1.1).toFixed(1) + 'px';
+        star.style.width = size;
+        star.style.height = size;
+        star.style.left = (Math.random() * 98) + 'vw';
+        star.style.top = (Math.random() * 98) + 'vh';
+        star.style.setProperty('--dur', (2.2 + Math.random() * 3.2).toFixed(1) + 's');
+        sky.appendChild(star);
+      }
+    }
+
+    function spawnShootingStar() {
+      const sky = document.getElementById('interactiveSky');
+      if (!sky) return;
+
+      const star = document.createElement('div');
+      star.className = 'shooting-star';
+      star.textContent = Math.random() > 0.35 ? '⭐' : '🌟';
+      star.title = 'Tap to catch a wish star!';
+
+      const startLeft = Math.random() * 82 + 5;
+      const startTop = Math.random() * 65 + 5;
+      star.style.left = startLeft + 'vw';
+      star.style.top = startTop + 'vh';
+
+      const dur = (7 + Math.random() * 4).toFixed(1);
+      star.style.animationDuration = dur + 's';
+      star.style.setProperty('--dx', ((Math.random() - 0.5) * 150).toFixed(0) + 'px');
+      star.style.setProperty('--dy', (95 + Math.random() * 95).toFixed(0) + 'px');
+
+      star.addEventListener('pointerdown', (e) => {
+        e.stopPropagation();
+        spawnStardustBurst(e.clientX, e.clientY);
+        star.remove();
+      });
+
+      sky.appendChild(star);
+      setTimeout(() => {
+        if (star.parentNode) star.remove();
+      }, parseFloat(dur) * 1000 + 200);
+    }
+
+    initStarfield();
+    spawnShootingStar();
+    setInterval(spawnShootingStar, 2800);
+  </script>
+</body>
+</html>
